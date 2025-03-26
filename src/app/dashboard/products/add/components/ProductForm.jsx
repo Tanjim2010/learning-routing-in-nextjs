@@ -1,18 +1,24 @@
 "use client"
+
+import { postSingleProduct } from "@/app/actions/products/postSingleProduct";
+import { redirect } from "next/navigation";
+
 const ProductForm = () => {
     const handleSubmit =async (e) => {
         e.preventDefault();
         const form = e.target;
         const productName = form.productName.value;
         const payload = {productName}
-        const res = await fetch('https://learning-routing-in-nextjs-eight.vercel.app/api/items', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        })
-        const result = await res.json();
+        // const res = await fetch('https://learning-routing-in-nextjs-eight.vercel.app/api/items', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(payload)
+        // })
+        // const result = await res.json();
+        const result = await postSingleProduct(payload);
+        redirect('/products')
         console.log(result)
     }
     return (
